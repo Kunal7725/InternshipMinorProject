@@ -26,3 +26,13 @@ export const deleteUserById = async (id) => {
   });
   return handleResponse(res);
 };
+
+// Called by a logged-in Admin to create a new user under themselves
+export const createUser = async (payload) => {
+  const res = await fetch(`${BASE_URL}/auth/register`, {
+    method: "POST",
+    headers: getAuthHeaders(), // sends Bearer token so backend sets createdBy = admin._id
+    body: JSON.stringify(payload),
+  });
+  return handleResponse(res);
+};

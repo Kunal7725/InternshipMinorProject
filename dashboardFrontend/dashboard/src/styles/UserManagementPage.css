@@ -4,6 +4,24 @@
   margin-bottom: 24px;
 }
 
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.page-header h2 {
+  margin-bottom: 0;
+}
+
+.action-btn.add {
+  background: #1e3a5f;
+  color: #fff;
+  padding: 8px 18px;
+  font-size: 14px;
+}
+
 .user-table-wrapper {
   background: #fff;
   border-radius: 12px;

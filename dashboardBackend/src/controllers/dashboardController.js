@@ -1,19 +1,22 @@
 const User = require("../models/User");
 
 // GET /api/dashboard/stats
-// Uses a single aggregation pipeline — more efficient than multiple countDocuments calls
+// Returns stats scoped to the currently logged-in admin's users only
 const getDashboardStats = async (req, res, next) => {
     try {
         const stats = await User.aggregate([
             {
+                // Only count users belonging to this admin
+                $match: { createdBy: req.user._id },
+            },
+            {
                 $group: {
-                    _id: "$role",       // group by role field
-                    count: { $sum: 1 }, // count docs per group
+                    _id: "$role",
+                    count: { $sum: 1 },
                 },
             },
         ]);
 
-        // Transform array result into a readable object
         const result = { totalUsers: 0, totalAdmins: 0, totalNormalUsers: 0 };
         stats.forEach(({ _id, count }) => {
             result.totalUsers += count;

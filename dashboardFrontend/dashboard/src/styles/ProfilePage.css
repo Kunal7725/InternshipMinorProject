@@ -45,3 +45,47 @@
   color: #222;
   font-weight: 500;
 }
+
+/* Admin Code display box */
+.admin-code-box {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #f0f4ff;
+  border: 1.5px dashed #1e3a5f;
+  border-radius: 8px;
+  padding: 10px 16px;
+  margin-top: 4px;
+}
+
+.admin-code-text {
+  font-size: 20px;
+  font-weight: 800;
+  color: #1e3a5f;
+  letter-spacing: 3px;
+  font-family: monospace;
+}
+
+.copy-btn {
+  margin-left: auto;
+  padding: 5px 14px;
+  background: #1e3a5f;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+
+.copy-btn:hover { background: #2d6a9f; }
+
+.code-hint {
+  font-size: 11px;
+  color: #aaa;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+  margin-left: 6px;
+}

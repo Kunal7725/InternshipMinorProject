@@ -5,7 +5,7 @@ import { useAuth } from "../context/AuthContext";
 import "../styles/LoginPage.css";
 
 const RegisterPage = () => {
-  const [form, setForm] = useState({ name: "", email: "", password: "", role: "USER" });
+  const [form, setForm] = useState({ name: "", email: "", password: "", role: "USER", adminCode: "" });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -19,7 +19,7 @@ const RegisterPage = () => {
     setError("");
     setLoading(true);
     try {
-      const res = await registerUser(form.name, form.email, form.password, form.role);
+      const res = await registerUser(form.name, form.email, form.password, form.role, form.adminCode || undefined);
       login(res.data, res.token);
       navigate("/dashboard");
     } catch (err) {
@@ -56,6 +56,15 @@ const RegisterPage = () => {
               <option value="USER">User</option>
               <option value="ADMIN">Admin</option>
             </select>
+          </div>
+          <div className="form-group">
+            <label>Admin Code <span style={{ fontWeight: 400, color: "#aaa", fontSize: "12px" }}>(optional — join an admin's workspace)</span></label>
+            <input
+              name="adminCode"
+              placeholder="e.g. ATG123"
+              value={form.adminCode}
+              onChange={handleChange}
+            />
           </div>
           <button className="submit-btn" type="submit" disabled={loading}>
             {loading ? "Creating account..." : "Register"}

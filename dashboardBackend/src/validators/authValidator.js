@@ -23,6 +23,11 @@ const validateRegister = [
         .optional()
         .isIn(["ADMIN", "USER"])
         .withMessage("Role must be ADMIN or USER"),
+    body("adminCode")
+        .optional()
+        .isString()
+        .trim()
+        .withMessage("Admin Code must be a valid string"),
     handleValidation,
 ];
 

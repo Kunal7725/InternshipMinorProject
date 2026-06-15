@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { fetchAllUsers, deleteUserById } from "../api/userApi";
 import { useAuth } from "../context/AuthContext";
 import EditUserModal from "../components/EditUserModal";
+import AddUserModal from "../components/AddUserModal";
 import "../styles/UserManagementPage.css";
 
 const UserManagementPage = () => {
@@ -9,6 +10,7 @@ const UserManagementPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [editingUser, setEditingUser] = useState(null);
+  const [showAddModal, setShowAddModal] = useState(false);
 
   const { user: currentUser } = useAuth();
 
@@ -37,7 +39,14 @@ const UserManagementPage = () => {
 
   return (
     <div className="user-management-page">
-      <h2>User Management</h2>
+      <div className="page-header">
+        <h2>User Management</h2>
+        {currentUser?.role === "ADMIN" && (
+          <button className="action-btn add" onClick={() => setShowAddModal(true)}>
+            + Add User
+          </button>
+        )}
+      </div>
 
       <div className="user-table-wrapper">
         <table className="user-table">
@@ -90,6 +99,13 @@ const UserManagementPage = () => {
           user={editingUser}
           onClose={() => setEditingUser(null)}
           onUpdated={loadUsers}
+        />
+      )}
+
+      {showAddModal && (
+        <AddUserModal
+          onClose={() => setShowAddModal(false)}
+          onCreated={loadUsers}
         />
       )}
     </div>
