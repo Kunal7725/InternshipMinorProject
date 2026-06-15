@@ -1,0 +1,134 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  background: #f0f2f5;
+  color: #1a1a1a;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page-loader {
+  text-align: center;
+  padding: 40px;
+  color: #888;
+  font-size: 15px;
+}
+
+/* Shared role badge used in layout, table, profile */
+.role-badge {
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.role-badge.admin { background: #fef3c7; color: #d97706; }
+.role-badge.user  { background: #e0f2fe; color: #0369a1; }
+
+/* Shared form group used in login, register, modal */
+.form-group {
+  margin-bottom: 18px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: #444;
+  margin-bottom: 6px;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1.5px solid #ddd;
+  border-radius: 8px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+  background: #fff;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: #2d6a9f;
+}
+
+.error-banner {
+  background: #fdecea;
+  color: #c0392b;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  margin-bottom: 16px;
+}
+
+/* ── Dark mode global overrides ── */
+body.dark {
+  background: #0f172a;
+  color: #e2e8f0;
+}
+
+/* Forms */
+body.dark .form-group label { color: #94a3b8; }
+body.dark .form-group input,
+body.dark .form-group select {
+  background: #1e293b;
+  border-color: #334155;
+  color: #e2e8f0;
+}
+body.dark .form-group input:focus,
+body.dark .form-group select:focus { border-color: #60a5fa; }
+
+/* Stat cards */
+body.dark .stat-card {
+  background: #1e293b;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+body.dark .stat-label { color: #64748b; }
+body.dark .stat-value { color: #e2e8f0; }
+body.dark .dashboard-page h2 { color: #e2e8f0; }
+
+/* User table */
+body.dark .user-table-wrapper {
+  background: #1e293b;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+body.dark .user-table thead { background: #0f172a; }
+body.dark .user-table td { color: #cbd5e1; border-bottom-color: #334155; }
+body.dark .user-table tbody tr:hover { background: #273549; }
+body.dark .user-management-page h2 { color: #e2e8f0; }
+
+/* Modal */
+body.dark .modal-box {
+  background: #1e293b;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+}
+body.dark .modal-box h3 { color: #e2e8f0; }
+body.dark .btn-cancel { background: #334155; color: #e2e8f0; }
+body.dark .btn-cancel:hover { background: #475569; }
+
+/* Profile */
+body.dark .profile-card {
+  background: #1e293b;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+body.dark .profile-field label { color: #64748b; }
+body.dark .profile-field p { color: #e2e8f0; }
+body.dark .profile-page h2 { color: #e2e8f0; }
+
+/* Login / Register card */
+body.dark .login-card {
+  background: #1e293b;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+}
+body.dark .login-card h2 { color: #e2e8f0; }
+body.dark .login-card p { color: #64748b; }
+body.dark .auth-switch { color: #64748b; }
