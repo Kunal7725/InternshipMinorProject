@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useTheme } from "../context/ThemeContext";
@@ -7,6 +8,8 @@ const DashboardLayout = () => {
   const { user, logout } = useAuth();
   const { isDark, toggleTheme } = useTheme();
   const navigate = useNavigate();
+  const [sidebarOpen, setSidebarOpen] = useState(true);
+
 
   const handleLogout = () => {
     logout();
@@ -14,10 +17,10 @@ const DashboardLayout = () => {
   };
 
   return (
-    <div className="dashboard-layout">
-      <aside className="sidebar">
+    <div className={`dashboard-layout${sidebarOpen ? "" : " sidebar-collapsed"}`}>
+      <aside className={`sidebar${sidebarOpen ? "" : " closed"}`}>
         <div className="sidebar-brand">
-          Dash<span>Board</span>
+          {sidebarOpen && <span>Dash<span>Board</span></span>}
         </div>
         <ul className="sidebar-nav">
           <li>
@@ -43,7 +46,12 @@ const DashboardLayout = () => {
 
       <div className="main-content">
         <header className="topbar">
-          <span className="topbar-title">Dashboard</span>
+          <div className="topbar-left">
+            <button className="hamburger-btn" onClick={() => setSidebarOpen((p) => !p)}>
+              <span /><span /><span />
+            </button>
+            <span className="topbar-title">Dashboard</span>
+          </div>
           <div className="topbar-user">
             <button className="theme-toggle-btn" onClick={toggleTheme} title="Toggle theme">
               {isDark ? "☀️ Light" : "🌙 Dark"}

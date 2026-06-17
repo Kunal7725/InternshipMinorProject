@@ -18,12 +18,11 @@ const userSchema = new mongoose.Schema(
             enum: ["ADMIN", "USER"],
             default: "USER",
         },
-        // Unique invite code — only set for ADMIN accounts, null for regular users
+        // Unique invite code — only set for ADMIN accounts, not stored for regular users
         adminCode: {
             type: String,
             unique: true,
-            sparse: true, // allows multiple null values (users won't have this)
-            default: null,
+            sparse: true, // sparse index ignores documents where field is missing/undefined
         },
         // Links a USER to the ADMIN who created/invited them. null = top-level Admin account.
         createdBy: {

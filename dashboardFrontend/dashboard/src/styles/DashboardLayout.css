@@ -2,6 +2,7 @@
   display: flex;
   min-height: 100vh;
   background: #f0f2f5;
+  transition: all 0.3s;
 }
 
 /* Sidebar */
@@ -16,6 +17,14 @@
   top: 0;
   left: 0;
   height: 100vh;
+  transition: width 0.3s, transform 0.3s;
+  overflow: hidden;
+  z-index: 20;
+}
+
+.sidebar.closed {
+  width: 0;
+  transform: translateX(-240px);
 }
 
 .sidebar-brand {
@@ -80,6 +89,11 @@
   flex: 1;
   display: flex;
   flex-direction: column;
+  transition: margin-left 0.3s;
+}
+
+.sidebar-collapsed .main-content {
+  margin-left: 0;
 }
 
 .topbar {
@@ -92,6 +106,39 @@
   position: sticky;
   top: 0;
   z-index: 10;
+}
+
+.topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+/* Hamburger button */
+.hamburger-btn {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 36px;
+  height: 36px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 6px;
+  transition: background 0.2s;
+}
+
+.hamburger-btn:hover { background: #f0f2f5; }
+
+.hamburger-btn span {
+  display: block;
+  height: 2.5px;
+  width: 100%;
+  background: #1e3a5f;
+  border-radius: 2px;
+  transition: all 0.3s;
 }
 
 .topbar-title {
@@ -189,4 +236,6 @@ body.dark .theme-toggle-btn:hover {
   border-color: #60a5fa;
 }
 
+body.dark .hamburger-btn span { background: #e2e8f0; }
+body.dark .hamburger-btn:hover { background: #334155; }
 body.dark .main-content { background: #0f172a; }

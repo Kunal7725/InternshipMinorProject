@@ -49,7 +49,7 @@ const register = async (req, res, next) => {
             password: hashed,
             role: finalRole,
             createdBy,
-            adminCode: userAdminCode,
+            ...(userAdminCode && { adminCode: userAdminCode }),
         });
 
         res.status(201).json({
