@@ -1,0 +1,136 @@
+/* ===== REPORTS PAGE ===== */
+.reports-page {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  animation: fadeInUp 0.3s ease;
+}
+
+.reports-selector {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
+}
+
+.report-type-card {
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 18px;
+  cursor: pointer;
+  transition: var(--transition);
+  display: flex;
+  gap: 14px;
+  align-items: center;
+}
+.report-type-card:hover { border-color: var(--primary); box-shadow: var(--shadow); transform: translateY(-2px); }
+.report-type-card.active {
+  border-color: var(--primary);
+  background: var(--primary-bg);
+  box-shadow: var(--shadow);
+}
+.report-type-icon {
+  font-size: 28px;
+  width: 52px; height: 52px;
+  background: var(--surface-2);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: var(--transition);
+}
+.report-type-card.active .report-type-icon { background: var(--primary); filter: grayscale(0); }
+.report-type-title { font-size: 14px; font-weight: 700; color: var(--text-primary); margin-bottom: 4px; }
+.report-type-desc  { font-size: 12px; color: var(--text-muted); line-height: 1.4; }
+
+/* Export bar */
+.reports-export-bar {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: var(--shadow-sm);
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.reports-export-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 15px;
+  color: var(--text-primary);
+}
+.reports-export-title strong { font-weight: 700; }
+.reports-export-date { font-size: 12px; color: var(--text-muted); }
+.reports-export-btns { display: flex; gap: 8px; }
+.export-btn {
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  border: 1.5px solid transparent;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.export-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+.export-btn.pdf  { background: var(--danger-bg);  color: var(--danger);  border-color: rgba(239,68,68,0.2); }
+.export-btn.xlsx { background: var(--success-bg); color: var(--success); border-color: rgba(34,197,94,0.2); }
+.export-btn.csv  { background: var(--warning-bg); color: var(--warning); border-color: rgba(245,158,11,0.2); }
+.export-btn:hover:not(:disabled) { filter: brightness(0.93); transform: translateY(-1px); box-shadow: var(--shadow-sm); }
+
+/* Charts */
+.reports-charts { display: flex; flex-direction: column; gap: 16px; }
+.reports-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.report-chart-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  box-shadow: var(--shadow-sm);
+}
+.report-chart-card.full { grid-column: 1 / -1; }
+.report-chart-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 16px;
+}
+
+.report-summary-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.report-summary-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  background: var(--surface-2);
+  border-radius: var(--radius-sm);
+}
+.report-summary-dot { width: 12px; height: 12px; border-radius: 3px; flex-shrink: 0; }
+.report-summary-name { flex: 1; font-size: 13px; font-weight: 500; color: var(--text-primary); }
+.report-summary-val  { font-size: 18px; font-weight: 800; color: var(--text-primary); }
+
+@media (max-width: 768px) {
+  .reports-grid { grid-template-columns: 1fr; }
+  .reports-export-bar { flex-direction: column; align-items: flex-start; }
+}

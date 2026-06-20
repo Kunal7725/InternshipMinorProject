@@ -1,22 +1,35 @@
-const express = require("express");
-const cors = require("cors");
+const express  = require("express");
+const cors     = require("cors");
+const path     = require("path");
 
-const authRoutes = require("./routes/authRoutes");
-const userRoutes = require("./routes/userRoutes");
-const dashboardRoutes = require("./routes/dashboardRoutes");
-const errorHandler = require("./middleware/errorMiddleware");
+const authRoutes         = require("./routes/authRoutes");
+const userRoutes         = require("./routes/userRoutes");
+const dashboardRoutes    = require("./routes/dashboardRoutes");
+const projectRoutes      = require("./routes/projectRoutes");
+const assignmentRoutes   = require("./routes/assignmentRoutes");
+const submissionRoutes   = require("./routes/submissionRoutes");
+const notificationRoutes = require("./routes/notificationRoutes");
+const activityRoutes     = require("./routes/activityRoutes");
+const errorHandler       = require("./middleware/errorMiddleware");
 
 const app = express();
 
 app.use(cors({ origin: "http://localhost:5173", credentials: true }));
 app.use(express.json());
 
-// API Routes
-app.use("/api/auth", authRoutes);
-app.use("/api/users", userRoutes);
-app.use("/api/dashboard", dashboardRoutes);
+// Serve uploaded files statically
+app.use("/uploads", express.static(path.join(__dirname, "..", "uploads")));
 
-// Global error handler — must be registered AFTER all routes
+// API Routes
+app.use("/api/auth",          authRoutes);
+app.use("/api/users",         userRoutes);
+app.use("/api/dashboard",     dashboardRoutes);
+app.use("/api/projects",      projectRoutes);
+app.use("/api/assignments",   assignmentRoutes);
+app.use("/api/submissions",   submissionRoutes);
+app.use("/api/notifications", notificationRoutes);
+app.use("/api/activity",      activityRoutes);
+
 app.use(errorHandler);
 
 module.exports = app;
