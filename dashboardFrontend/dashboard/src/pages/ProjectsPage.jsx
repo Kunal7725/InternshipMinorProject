@@ -47,10 +47,24 @@ const ProjectsPage = () => {
 
   useEffect(() => { load(); }, [page, filterStatus, filterPriority]);
   useEffect(() => {
-    if (isAdmin) fetchAllUsers().then((r) => setUsers(r.data)).catch(() => {});
+    if (isAdmin) fetchAllUsers().then((r) => {
+      setUsers(r.data);
+    }).catch(() => {});
   }, [isAdmin]);
 
-  const openCreate = () => { setEditing(null); setForm(emptyForm); setFiles([]); setShowForm(true); };
+  const openCreate = () => {
+    // Pre-select all users by default
+    fetchAllUsers().then((r) => {
+      const allIds = r.data.map((u) => u._id);
+      setUsers(r.data);
+      setEditing(null);
+      setForm({ ...emptyForm, assignedUsers: allIds });
+      setFiles([]);
+      setShowForm(true);
+    }).catch(() => {
+      setEditing(null); setForm(emptyForm); setFiles([]); setShowForm(true);
+    });
+  };
   const openEdit   = (p) => {
     setEditing(p);
     setForm({

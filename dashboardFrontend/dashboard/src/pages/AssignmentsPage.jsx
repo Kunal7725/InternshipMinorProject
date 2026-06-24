@@ -193,7 +193,12 @@ const AssignmentsPage = () => {
               </div>
               <div className="form-row">
                 <label>Project *</label>
-                <select required value={form.projectId} onChange={(e) => setForm({ ...form, projectId: e.target.value, assignedUsers: [] })}>
+                <select required value={form.projectId}
+                  onChange={(e) => {
+                    const proj = projects.find((p) => p._id === e.target.value);
+                    const allUserIds = (proj?.assignedUsers || []).map((u) => u._id || u);
+                    setForm({ ...form, projectId: e.target.value, assignedUsers: allUserIds });
+                  }}>
                   <option value="">Select a project</option>
                   {projects.map((p) => <option key={p._id} value={p._id}>{p.title}</option>)}
                 </select>
@@ -225,7 +230,7 @@ const AssignmentsPage = () => {
               </div>
               {selectedProject?.assignedUsers?.length > 0 && (
                 <div className="form-row">
-                  <label>Assign to (leave empty = all project users)</label>
+                  <label>Assign to (all project users selected by default)</label>
                   <div className="user-checkboxes">
                     {selectedProject.assignedUsers.map((u) => (
                       <label key={u._id || u} className="user-checkbox-item">

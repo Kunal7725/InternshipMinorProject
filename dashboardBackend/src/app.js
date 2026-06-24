@@ -10,6 +10,7 @@ const assignmentRoutes   = require("./routes/assignmentRoutes");
 const submissionRoutes   = require("./routes/submissionRoutes");
 const notificationRoutes = require("./routes/notificationRoutes");
 const activityRoutes     = require("./routes/activityRoutes");
+const chatRoutes         = require("./routes/chatRoutes");
 const errorHandler       = require("./middleware/errorMiddleware");
 
 const app = express();
@@ -29,6 +30,7 @@ app.use("/api/assignments",   assignmentRoutes);
 app.use("/api/submissions",   submissionRoutes);
 app.use("/api/notifications", notificationRoutes);
 app.use("/api/activity",      activityRoutes);
+app.use("/api/chat",          chatRoutes);
 
 app.use(errorHandler);
 

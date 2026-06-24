@@ -13,9 +13,9 @@ const ICON_MAP = {
   submission_reviewed: "✅",
 };
 
-const NavItem = ({ to, icon, label, badge, collapsed, end }) => (
+const NavItem = ({ to, icon, label, badge, collapsed, end, onNavigate }) => (
   <li>
-    <NavLink to={to} end={end} className={({ isActive }) => isActive ? "active" : ""}>
+    <NavLink to={to} end={end} onClick={onNavigate} className={({ isActive }) => isActive ? "active" : ""}>
       <span className="nav-icon">{icon}</span>
       <span className="nav-label">{label}</span>
       {badge > 0 && !collapsed && <span className="nav-badge">{badge > 9 ? "9+" : badge}</span>}
@@ -30,8 +30,9 @@ const DashboardLayout = () => {
   const location = useLocation();
   const isAdmin = user?.role === "ADMIN";
 
-  const [collapsed, setCollapsed] = useState(false);
-  const [notifOpen, setNotifOpen] = useState(false);
+  const [collapsed, setCollapsed]   = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [notifOpen, setNotifOpen]   = useState(false);
   const [notifications, setNotifications] = useState([]);
   const [unread, setUnread] = useState(0);
   const notifRef = useRef(null);
@@ -52,6 +53,14 @@ const DashboardLayout = () => {
 
   const handleLogout = () => { logout(); navigate("/login"); };
 
+  const toggleSidebar = () => {
+    if (window.innerWidth <= 768) {
+      setMobileOpen((p) => !p);
+    } else {
+      setCollapsed((p) => !p);
+    }
+  };
+
   const pageTitle = () => {
     const p = location.pathname;
     if (p.endsWith("/dashboard")) return "Dashboard";
@@ -70,8 +79,13 @@ const DashboardLayout = () => {
 
   return (
     <div className={`dashboard-layout${collapsed ? " sidebar-collapsed" : ""}`}>
+      {/* Mobile overlay backdrop */}
+      {mobileOpen && (
+        <div className="sidebar-overlay" onClick={() => setMobileOpen(false)} />
+      )}
+
       {/* ── Sidebar ── */}
-      <aside className={`sidebar${collapsed ? " collapsed" : ""}`}>
+      <aside className={`sidebar${collapsed ? " collapsed" : ""}${mobileOpen ? " mobile-open" : ""}`}>
         {/* Brand */}
         <div className="sidebar-brand">
           <div className="brand-icon">⚡</div>
@@ -81,27 +95,27 @@ const DashboardLayout = () => {
         {/* Nav */}
         <ul className="sidebar-nav">
           <li className="nav-section-label">Main</li>
-          <NavItem to="/dashboard" end icon="📊" label="Overview" collapsed={collapsed} />
-          <NavItem to="/dashboard/projects" icon="📁" label="Projects" collapsed={collapsed} />
-          <NavItem to="/dashboard/assignments" icon="📝" label="Assignments" collapsed={collapsed} />
-          <NavItem to="/dashboard/submissions" icon="📤" label="Submissions" collapsed={collapsed} />
+          <NavItem to="/dashboard" end icon="📊" label="Overview" collapsed={collapsed} onNavigate={() => setMobileOpen(false)} />
+          <NavItem to="/dashboard/projects" icon="📁" label="Projects" collapsed={collapsed} onNavigate={() => setMobileOpen(false)} />
+          <NavItem to="/dashboard/assignments" icon="📝" label="Assignments" collapsed={collapsed} onNavigate={() => setMobileOpen(false)} />
+          <NavItem to="/dashboard/submissions" icon="📤" label="Submissions" collapsed={collapsed} onNavigate={() => setMobileOpen(false)} />
 
           {isAdmin && (
             <>
               <li className="nav-section-label">Management</li>
-              <NavItem to="/dashboard/users" icon="👥" label="Users" collapsed={collapsed} />
-              <NavItem to="/dashboard/activity" icon="🕵️" label="Activity Logs" collapsed={collapsed} />
+              <NavItem to="/dashboard/users" icon="👥" label="Users" collapsed={collapsed} onNavigate={() => setMobileOpen(false)} />
+              <NavItem to="/dashboard/activity" icon="🕵️" label="Activity Logs" collapsed={collapsed} onNavigate={() => setMobileOpen(false)} />
             </>
           )}
 
           <li className="nav-section-label">Workspace</li>
-          <NavItem to="/dashboard/chat" icon="💬" label="Chat" collapsed={collapsed} />
-          <NavItem to="/dashboard/calendar" icon="📅" label="Calendar" collapsed={collapsed} />
-          <NavItem to="/dashboard/reports" icon="📈" label="Reports" collapsed={collapsed} />
-          <NavItem to="/dashboard/notifications" icon="🔔" label="Notifications" badge={unread} collapsed={collapsed} />
+          <NavItem to="/dashboard/chat" icon="💬" label="Chat" collapsed={collapsed} onNavigate={() => setMobileOpen(false)} />
+          <NavItem to="/dashboard/calendar" icon="📅" label="Calendar" collapsed={collapsed} onNavigate={() => setMobileOpen(false)} />
+          <NavItem to="/dashboard/reports" icon="📈" label="Reports" collapsed={collapsed} onNavigate={() => setMobileOpen(false)} />
+          <NavItem to="/dashboard/notifications" icon="🔔" label="Notifications" badge={unread} collapsed={collapsed} onNavigate={() => setMobileOpen(false)} />
 
           <li className="nav-section-label">Account</li>
-          <NavItem to="/dashboard/profile" icon="👤" label="Profile" collapsed={collapsed} />
+          <NavItem to="/dashboard/profile" icon="👤" label="Profile" collapsed={collapsed} onNavigate={() => setMobileOpen(false)} />
         </ul>
 
         {/* Profile card */}
@@ -120,7 +134,7 @@ const DashboardLayout = () => {
         {/* Topbar */}
         <header className="topbar">
           <div className="topbar-left">
-            <button className="collapse-btn" onClick={() => setCollapsed((p) => !p)}>
+            <button className="collapse-btn" onClick={toggleSidebar}>
               <span /><span /><span />
             </button>
             <div className="topbar-breadcrumb">

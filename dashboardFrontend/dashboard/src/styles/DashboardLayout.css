@@ -448,9 +448,27 @@
 
 /* ── Responsive ── */
 @media (max-width: 768px) {
-  .sidebar { transform: translateX(-100%); }
-  .sidebar.mobile-open { transform: translateX(0); }
+  .sidebar {
+    transform: translateX(-100%);
+    width: var(--sidebar-width) !important; /* always full width on mobile, never collapsed */
+    z-index: 200;
+  }
+  .sidebar.mobile-open {
+    transform: translateX(0);
+    box-shadow: var(--shadow-lg);
+  }
+  .sidebar-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    z-index: 199;
+    backdrop-filter: blur(2px);
+  }
   .main-content { margin-left: 0 !important; }
   .topbar-search { display: none; }
-  .page-content { padding: 16px; }
+  .topbar-breadcrumb { display: none; }
+  .topbar-user-info { display: none; }
+  .topbar-divider { display: none; }
+  .page-content { padding: 14px; }
+  .notif-dropdown { width: calc(100vw - 24px); right: -60px; }
 }

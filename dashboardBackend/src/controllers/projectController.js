@@ -8,17 +8,18 @@ const createProject = async (req, res, next) => {
 
         const documents = req.files ? req.files.map(f => ({ name: f.originalname, path: f.filename })) : [];
 
+        // If no users explicitly selected, auto-assign ALL users under this admin
+        const adminUsers = await require("../models/User").distinct("_id", { createdBy: req.user._id });
+        const users = assignedUsers ? JSON.parse(assignedUsers) : adminUsers.map(id => id.toString());
+
         const project = await Project.create({
             title, description, priority,
             techStack: techStack ? JSON.parse(techStack) : [],
             startDate, dueDate, estimatedHours,
-            assignedUsers: assignedUsers ? JSON.parse(assignedUsers) : [],
+            assignedUsers: users,
             documents,
             admin: req.user._id,
         });
-
-        // Notify each assigned user
-        const users = assignedUsers ? JSON.parse(assignedUsers) : [];
         for (const uid of users) {
             await notify(uid, "project_assigned", `You have been assigned to project: ${title}`, `/projects/${project._id}`);
         }

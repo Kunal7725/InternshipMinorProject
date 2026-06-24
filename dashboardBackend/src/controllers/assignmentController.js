@@ -11,7 +11,8 @@ const createAssignment = async (req, res, next) => {
         if (!project) return res.status(404).json({ success: false, message: "Project not found" });
 
         const files = req.files ? req.files.map(f => ({ name: f.originalname, path: f.filename })) : [];
-        const users = assignedUsers ? JSON.parse(assignedUsers) : project.assignedUsers;
+        // If no users explicitly selected, use all users already on the project
+        const users = assignedUsers ? JSON.parse(assignedUsers) : project.assignedUsers.map(id => id.toString());
 
         const assignment = await Assignment.create({
             title, description, deadline, priority, marks,

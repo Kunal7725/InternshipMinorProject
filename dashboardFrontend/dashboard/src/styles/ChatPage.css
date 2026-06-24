@@ -119,6 +119,13 @@
   color: var(--text-muted);
   font-size: 14px;
   padding: 40px;
+  width: 100%;
+}
+.chat-no-users {
+  padding: 24px 16px;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 13px;
 }
 
 .chat-msg {
@@ -222,8 +229,121 @@
 .chat-send-btn:hover:not(:disabled) { background: var(--primary-dark); transform: scale(1.1); }
 .chat-send-btn:disabled { background: var(--border); cursor: not-allowed; }
 
+/* ── Group styles ── */
+.chat-section-label {
+  padding: 10px 14px 4px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+}
+.chat-new-group-btn {
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 20px; height: 20px;
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+  flex-shrink: 0;
+}
+.chat-new-group-btn:hover { background: var(--primary-dark); transform: scale(1.1); }
+
+.group-avatar {
+  background: linear-gradient(135deg, #7C3AED, #2563EB) !important;
+  font-size: 16px !important;
+  font-weight: 800 !important;
+}
+
+.group-action-btn {
+  background: none;
+  border: none;
+  font-size: 13px;
+  cursor: pointer;
+  padding: 2px 4px;
+  border-radius: 4px;
+  opacity: 0.6;
+  transition: var(--transition);
+  line-height: 1;
+}
+.group-action-btn:hover { opacity: 1; background: var(--surface-2); }
+
+/* Group members preview in header */
+.group-members-preview {
+  display: flex;
+  align-items: center;
+  gap: -6px;
+  margin-right: 4px;
+}
+.group-member-chip {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary), #7C3AED);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--surface);
+  margin-left: -6px;
+  flex-shrink: 0;
+}
+.group-member-chip.more {
+  background: var(--surface-2);
+  color: var(--text-secondary);
+  border-color: var(--border);
+  font-size: 9px;
+}
+
+/* Sender name above bubble in group chat */
+.chat-sender-name {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 3px;
+  padding-left: 2px;
+}
+
+/* Group member picker in modal */
+.group-member-list {
+  max-height: 220px;
+  overflow-y: auto;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  background: var(--surface-2);
+}
+.group-member-check {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: var(--transition);
+  background: var(--surface);
+}
+.group-member-check:hover { background: var(--primary-bg); }
+.group-member-check input[type="checkbox"] {
+  width: 16px; height: 16px;
+  accent-color: var(--primary);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
 @media (max-width: 768px) {
   .chat-sidebar { width: 80px; }
   .chat-user-name, .chat-user-role, .chat-unread { display: none; }
   .chat-user-item { justify-content: center; padding: 8px; }
+  .chat-section-label span:last-child { display: none; }
 }
